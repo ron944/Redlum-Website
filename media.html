@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media | Redlum International</title>
+<meta name="description" content="Media, documents and publications from Redlum International, business consultancy by Ron Mulder, Southport, Queensland.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --red:#ff000d; --black:#0a0a0a; --white:#f8f6f2; --grey-light:#f0ede8; --grey-mid:#c8c4bc; --grey-dark:#4a4643; --gold:#b8a882; }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Montserrat',sans-serif; background:var(--white); color:var(--black); }
+  header { display:flex; align-items:center; justify-content:space-between; padding:1.4rem 4rem; border-bottom:1px solid rgba(184,168,130,0.25); }
+  .logo { font-family:'Cormorant Garamond',serif; font-size:1.75rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--black); }
+  .logo .red { color:var(--red); }
+  .logo-sub { font-family:'Montserrat',sans-serif; font-size:0.52rem; font-weight:500; letter-spacing:0.35em; color:var(--gold); display:block; text-align:right; }
+  nav a { font-size:0.68rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--grey-dark); text-decoration:none; margin-left:2.5rem; }
+  nav a:hover { color:var(--red); }
+  main { padding:5rem 4rem 6rem; max-width:1300px; margin:0 auto; }
+  .eyebrow { font-size:0.6rem; font-weight:600; letter-spacing:0.4em; text-transform:uppercase; color:var(--red); margin-bottom:1rem; }
+  h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2.4rem,4vw,3.8rem); font-weight:300; margin-bottom:1rem; }
+  .intro { font-size:0.85rem; font-weight:300; line-height:1.9; color:var(--grey-dark); max-width:560px; margin-bottom:3.5rem; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:1.8rem; }
+  .card { background:#fff; border:1px solid var(--grey-light); border-top:3px solid transparent; display:flex; flex-direction:column; transition:border-color .3s, transform .3s; text-decoration:none; color:inherit; }
+  .card:hover { border-top-color:var(--red); transform:translateY(-3px); }
+  .thumb { height:170px; background:var(--grey-light); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .thumb img { width:100%; height:100%; object-fit:cover; }
+  .filetype { font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:var(--grey-dark); letter-spacing:0.1em; }
+  .info { padding:1.2rem 1.3rem 1.4rem; }
+  .name { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:600; line-height:1.3; margin-bottom:0.5rem; word-break:break-word; }
+  .meta { font-size:0.62rem; font-weight:400; letter-spacing:0.08em; color:var(--grey-dark); line-height:1.7; }
+  .status { font-size:0.8rem; color:var(--grey-dark); font-weight:300; }
+  footer { background:var(--black); padding:2rem 4rem; color:var(--grey-mid); font-size:0.6rem; letter-spacing:0.1em; text-align:center; }
+  @media (max-width:760px){ header{padding:1.2rem 1.5rem;} main{padding:3rem 1.5rem 4rem;} }
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="index.html"><span class="red">Red</span>lum<span class="logo-sub">International</span></a>
+  <nav><a href="index.html">Home</a><a href="index.html#contact">Contact</a></nav>
+</header>
+
+<main>
+  <p class="eyebrow">Resources</p>
+  <h1>Media</h1>
+  <p class="intro">Documents, images and publications from Redlum International.</p>
+  <div id="grid" class="grid"><p class="status">Loading…</p></div>
+</main>
+
+<footer>© Redlum International. All rights reserved. | Ron Mulder</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
+<script>
+  const C = window.REDLUM_CONFIG;
+  const sb = supabase.createClient(C.SUPABASE_URL, C.SUPABASE_ANON_KEY);
+  const grid = document.getElementById('grid');
+
+  function fmtSize(b){ if(!b) return ''; return b<1048576 ? Math.round(b/1024)+' KB' : (b/1048576).toFixed(1)+' MB'; }
+  function fmtDate(d){ return new Date(d).toLocaleString('en-AU',{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'}); }
+  function ext(name){ const p=name.split('.'); return p.length>1 ? p.pop().toUpperCase() : 'FILE'; }
+
+  async function load(){
+    const { data, error } = await sb.from('media_items').select('*').order('uploaded_at',{ascending:false});
+    grid.innerHTML = '';
+    if (error) { grid.innerHTML = '<p class="status">Media is unavailable right now.</p>'; return; }
+    if (!data.length) { grid.innerHTML = '<p class="status">No media has been published yet.</p>'; return; }
+    data.forEach(item => {
+      const url = sb.storage.from(C.BUCKET).getPublicUrl(item.file_path).data.publicUrl;
+      const a = document.createElement('a');
+      a.className = 'card'; a.href = url; a.target = '_blank'; a.rel = 'noopener';
+      const thumb = document.createElement('div'); thumb.className = 'thumb';
+      if ((item.mime_type||'').startsWith('image/')) {
+        const img = document.createElement('img'); img.src = url; img.alt = item.title || item.file_name; img.loading = 'lazy';
+        thumb.appendChild(img);
+      } else {
+        const t = document.createElement('span'); t.className = 'filetype'; t.textContent = ext(item.file_name);
+        thumb.appendChild(t);
+      }
+      const info = document.createElement('div'); info.className = 'info';
+      const n = document.createElement('div'); n.className = 'name'; n.textContent = item.title || item.file_name;
+      const m = document.createElement('div'); m.className = 'meta';
+      m.textContent = fmtDate(item.uploaded_at) + (item.size_bytes ? ' · ' + fmtSize(item.size_bytes) : '');
+      info.append(n, m); a.append(thumb, info); grid.appendChild(a);
+    });
+  }
+  load();
+</script>
+</body>
+</html>

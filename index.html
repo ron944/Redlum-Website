@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redlum International | Business Consultancy & Advisory | Ron Mulder MBA</title>
+<meta name="description" content="Redlum International is a specialist business consultancy founded by Ron Mulder MBA, TechMgt. 30+ years experience in business coaching, exit planning, M&A, strategic analysis and AI implementation. Based in Southport, Queensland, Australia.">
+<meta name="keywords" content="business consultancy Australia, business coaching Queensland, exit planning, mergers and acquisitions, startup strategy, corporate turnaround, business mentoring, leadership training, strategic analysis, AI implementation, Ron Mulder, Redlum International, Southport Queensland, business advisor Gold Coast, calibration industry consultant, test and measurement consultant, government supply consultant, aviation business consultant, business valuation Australia, sell a business Australia">
+<meta name="author" content="Ron Mulder, Redlum International">
+<meta name="robots" content="index, follow">
+<meta name="geo.region" content="AU-QLD">
+<meta name="geo.placename" content="Southport, Queensland, Australia">
+
+<!-- Open Graph (for sharing on LinkedIn, Facebook etc) -->
+<meta property="og:title" content="Redlum International | Business Consultancy & Advisory">
+<meta property="og:description" content="30+ years experience building and exiting businesses. Business coaching, M&A, exit planning, leadership training and AI implementation. Based in Queensland, Australia.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_AU">
+
+<!-- Schema.org structured data for Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Redlum International",
+  "description": "Business consultancy specialising in exit planning, mergers and acquisitions, startup strategy, business coaching, leadership training, and AI implementation.",
+  "founder": {
+    "@type": "Person",
+    "name": "Ron Mulder",
+    "jobTitle": "Founder & Principal Consultant",
+    "description": "30+ years experience building companies from inception to successful exit across aviation, government supply, calibration and test & measurement sectors."
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Southport",
+    "addressRegion": "Queensland",
+    "addressCountry": "AU"
+  },
+  "areaServed": "Australia",
+  "serviceType": ["Business Coaching", "Exit Planning", "Mergers and Acquisitions", "Strategic Analysis", "Leadership Training", "AI Implementation", "Corporate Turnaround", "Business Mentoring"]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #ff000d;
+    --black: #0a0a0a;
+    --white: #f8f6f2;
+    --grey-light: #f0ede8;
+    --grey-mid: #c8c4bc;
+    --grey-dark: #4a4643;
+    --gold: #b8a882;
+    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 4rem;
+    background: rgba(248,246,242,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(184,168,130,0.25);
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .logo span.red { color: var(--red); }
+  .logo span.black { color: var(--black); }
+  .logo-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.52rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    text-align: right;
+    margin-top: -2px;
+  }
+
+  nav a {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey-dark);
+    text-decoration: none;
+    margin-left: 2.5rem;
+    transition: color var(--transition);
+  }
+  nav a:hover { color: var(--red); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 4rem;
+    position: relative;
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 15%; bottom: 15%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--black);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.35s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 2.5rem 0;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .hero-lead {
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--grey-dark);
+    max-width: 420px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.65s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    background: var(--black);
+    color: var(--white);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid var(--black);
+    transition: all var(--transition);
+  }
+  .btn-primary:hover {
+    background: var(--red);
+    border-color: var(--red);
+  }
+
+  .btn-ghost {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey-dark);
+    text-decoration: none;
+    border-bottom: 1px solid var(--grey-mid);
+    padding-bottom: 2px;
+    transition: all var(--transition);
+  }
+  .btn-ghost:hover { color: var(--black); border-color: var(--black); }
+
+  .hero-right {
+    background: var(--black);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 6rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: 'RL';
+    position: absolute;
+    right: -0.1em;
+    bottom: -0.2em;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -0.05em;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 3rem;
+    width: 100%;
+    max-width: 400px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+
+  .stat-item {}
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.8rem;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+  }
+  .stat-num span { color: var(--red); }
+  .stat-label {
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 0.4rem;
+    line-height: 1.5;
+  }
+
+  .hero-quote {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(184,168,130,0.3);
+    width: 100%;
+    max-width: 400px;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.05s forwards;
+  }
+  .hero-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--grey-mid);
+    line-height: 1.6;
+  }
+  .hero-quote cite {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 1rem;
+    font-style: normal;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    padding: 8rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+    align-items: start;
+    background: var(--white);
+  }
+
+  .section-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--black);
+  }
+
+  .about-sticky { position: sticky; top: 120px; }
+
+  .about-body p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    line-height: 2;
+    color: var(--grey-dark);
+    margin-bottom: 1.5rem;
+  }
+  .about-body p strong { font-weight: 600; color: var(--black); }
+
+  .industries {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+  }
+
+  .industry-tag {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.1rem;
+    border: 1px solid var(--gold);
+    color: var(--grey-dark);
+  }
+
+  /* ── SERVICES ── */
+  #services {
+    padding: 8rem 4rem;
+    background: var(--black);
+  }
+
+  .services-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 5rem;
+  }
+
+  .services-header .section-label { color: var(--gold); }
+  .services-header .section-title { color: var(--white); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(184,168,130,0.2);
+  }
+
+  .service-card {
+    background: var(--black);
+    padding: 2.8rem 2.5rem;
+    transition: background var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--red);
+    transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .service-card:hover { background: #111; }
+  .service-card:hover::before { width: 100%; }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .service-desc {
+    font-size: 0.75rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--grey-mid);
+  }
+
+  /* ── SPECIALITIES ── */
+  #specialities {
+    padding: 8rem 4rem;
+    background: var(--grey-light);
+  }
+
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .spec-card {
+    background: var(--white);
+    padding: 2.2rem 1.8rem;
+    border-top: 3px solid transparent;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+
+  .spec-card:hover {
+    border-top-color: var(--red);
+    transform: translateY(-4px);
+  }
+
+  .spec-icon {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .spec-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 0.6rem;
+  }
+
+  .spec-text {
+    font-size: 0.72rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--grey-dark);
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    padding: 8rem 4rem;
+    background: var(--white);
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 8rem;
+    align-items: start;
+  }
+
+  .contact-info { position: sticky; top: 120px; }
+
+  .contact-detail {
+    margin-top: 3rem;
+  }
+
+  .contact-detail-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--grey-light);
+  }
+
+  .contact-detail-item:last-child { border-bottom: none; }
+
+  .detail-label {
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+
+  .detail-value {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--grey-dark);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  .detail-value:hover { color: var(--red); }
+
+  .detail-placeholder {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--grey-mid);
+  }
+
+  /* ── FORM ── */
+  .contact-form {}
+
+  .form-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-subtitle {
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: var(--grey-dark);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--grey-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--grey-mid);
+    border-radius: 0;
+    background: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--black);
+    outline: none;
+    transition: border-color var(--transition);
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%234a4643' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--black);
+  }
+
+  .form-group textarea {
+    height: 120px;
+    resize: vertical;
+    line-height: 1.8;
+  }
+
+  .form-submit {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 1rem;
+    background: var(--black);
+    color: var(--white);
+    border: 2px solid var(--black);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+
+  .form-submit:hover {
+    background: var(--red);
+    border-color: var(--red);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    padding: 2.5rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(184,168,130,0.2);
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .footer-copy {
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--grey-mid);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.hidden {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    header { padding: 1.2rem 2rem; }
+    nav { display: none; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 4rem 2rem; }
+    #about { grid-template-columns: 1fr; padding: 5rem 2rem; gap: 3rem; }
+    #services { padding: 5rem 2rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .services-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    #specialities { padding: 5rem 2rem; }
+    .spec-grid { grid-template-columns: 1fr 1fr; }
+    #contact { grid-template-columns: 1fr; padding: 5rem 2rem; gap: 4rem; }
+    footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div>
+    <div class="logo">
+      <span class="red">Red</span><span class="black">lum</span>
+      <span class="logo-sub" style="color:var(--gold)">International</span>
+    </div>
+  </div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#specialities">Specialities</a>
+    <a href="media.html">Media</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Business Consultancy &amp; Advisory | Southport, Queensland</p>
+    <h1 class="hero-title">
+      Knowing when<br>to <em>build</em>.<br>Knowing when<br>to <em>sell</em>.
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-lead">
+      With 30 years of experience founding, growing, and successfully exiting businesses across Australia and internationally, 
+      Ron Mulder MBA brings rare insight to every engagement — from first concept to final transaction.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Start a Conversation</a>
+      <a href="#services" class="btn-ghost">Our Services</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-num">30<span>+</span></div>
+        <div class="stat-label">Years of<br>Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" style="color:var(--red)">M&amp;A</div>
+        <div class="stat-label">Transactions<br>Facilitated</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Core Industry<br>Sectors</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" style="color:var(--gold)">↑</div>
+        <div class="stat-label">Exit Focused<br>Strategy</div>
+      </div>
+    </div>
+    <div class="hero-quote">
+      <p>"The best time to plan your exit is before you open the doors."</p>
+      <cite>— Ron Mulder, Founder</cite>
+      <p style="font-size:0.68rem; font-weight:300; color:var(--grey-mid); margin-top:1.5rem; line-height:1.8; font-family:'Montserrat',sans-serif;">
+        Supported by a curated network of specialist business partners, engaged when your situation demands it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" aria-label="About Ron Mulder - Business Consultant">
+  <div class="about-sticky reveal">
+    <h2 class="section-label" style="font-size:0.6rem; font-weight:600; letter-spacing:0.4em; text-transform:uppercase; color:var(--red); margin-bottom:1rem;">About Ron Mulder</h2>
+    <p class="section-title" style="font-family:'Cormorant Garamond',serif; font-size:clamp(2.2rem,3.5vw,3.5rem); font-weight:300; line-height:1.15; color:var(--black);">Built From<br>the Ground Up</p>
+  </div>
+  <div class="about-body reveal">
+    <p>
+      Ron Mulder is the founder of <strong>Redlum International</strong> — a consultancy born from 
+      three decades of hands-on experience building companies from inception to successful exit. 
+      His philosophy is simple: <strong>the end game should be part of the opening strategy</strong>.
+    </p>
+    <p>
+      Having operated across competitive sectors including <strong>aviation</strong>, 
+      <strong>government supply</strong>, <strong>calibration</strong> and 
+      <strong>test &amp; measurement</strong>, Ron brings a rare combination of operational depth 
+      and high-level strategic thinking. He has navigated the full lifecycle of business — from 
+      early-stage formation and capital structuring to growth acceleration and ultimate 
+      divestiture — multiple times over.
+    </p>
+    <p>
+      Redlum International works with founders, boards, and executive teams who want to do things 
+      properly: build with purpose, scale with discipline, and exit with maximum value. Whether you 
+      are just starting out or preparing for a significant transaction, Ron provides the counsel 
+      that only lived experience can offer.
+    </p>
+    <p>
+      Where an engagement calls for it, Ron draws on a trusted network of seasoned business partners — 
+      specialists in their own right — to ensure clients receive precisely the right expertise at every 
+      stage of their journey. The result is boutique personal service backed by the collective depth 
+      of a much larger practice.
+    </p>
+    <div class="industries">
+      <span class="industry-tag">✈ Aviation</span>
+      <span class="industry-tag">⚙ Government Supply</span>
+      <span class="industry-tag">🔬 Calibration</span>
+      <span class="industry-tag">📏 Test & Measurement</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" aria-label="Business Consulting Services Australia">
+  <div class="services-header reveal">
+    <div>
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title" style="color:var(--white)">Core Consulting Services</h2>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <h3 class="service-name">Business Coaching</h3>
+      <p class="service-desc">Structured, outcomes-focused business coaching for founders and executives in Queensland and Australia. Translate ambition into executable plans with someone who has done it repeatedly.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">02</div>
+      <h3 class="service-name">Strategic Analysis &amp; Finance</h3>
+      <p class="service-desc">Comprehensive strategic reviews encompassing financial modelling, competitive positioning, and scenario planning to inform critical business decisions.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">03</div>
+      <h3 class="service-name">Mentoring</h3>
+      <p class="service-desc">One-on-one business mentoring for leaders who want an experienced sounding board — direct, honest, and grounded in real-world outcomes, not theory.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">04</div>
+      <h3 class="service-name">Leadership Training</h3>
+      <p class="service-desc">Building leadership capability that scales with your business. From emerging managers to C-suite teams, developing the culture that drives performance.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">05</div>
+      <h3 class="service-name">Quality Assurance Implementation</h3>
+      <p class="service-desc">Designing and embedding QA frameworks that protect your brand, satisfy regulators, and create value buyers recognise at the point of sale.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">06</div>
+      <h3 class="service-name">AI Guidance &amp; Implementation</h3>
+      <p class="service-desc">Practical AI adoption for established businesses — identifying genuine use cases, managing the transition, and ensuring your team is equipped to lead in an AI-augmented world.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALITIES -->
+<section id="specialities" aria-label="Business Specialities - Exit Planning, M&A, Startup Strategy">
+  <div class="reveal" style="text-align:center; margin-bottom: 1rem;">
+    <p class="section-label" style="text-align:center;">Areas of Speciality</p>
+    <h2 class="section-title" style="text-align:center;">Where Experience<br>Creates Advantage</h2>
+  </div>
+  <div class="spec-grid">
+    <div class="spec-card reveal">
+      <div class="spec-icon">🚀</div>
+      <h3 class="spec-title">Startup &amp; Scale-Up Strategy</h3>
+      <p class="spec-text">From concept validation through rapid growth phases — building the foundations that allow businesses to scale without fracturing.</p>
+    </div>
+    <div class="spec-card reveal">
+      <div class="spec-icon">📊</div>
+      <h3 class="spec-title">Business Valuation &amp; Exit Planning</h3>
+      <p class="spec-text">Rigorous valuation methodology combined with strategic positioning to maximise enterprise value ahead of any transaction. Knowing when to sell is the ultimate competitive advantage.</p>
+    </div>
+    <div class="spec-card reveal">
+      <div class="spec-icon">🤝</div>
+      <h3 class="spec-title">Mergers &amp; Acquisitions</h3>
+      <p class="spec-text">End-to-end M&amp;A advisory — target identification, due diligence support, negotiation strategy, and integration planning.</p>
+    </div>
+    <div class="spec-card reveal">
+      <div class="spec-icon">↗</div>
+      <h3 class="spec-title">Corporate Turnaround</h3>
+      <p class="spec-text">Stabilising distressed businesses, identifying root causes, and implementing decisive change to restore profitability and confidence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" aria-label="Contact Redlum International">
+  <div class="contact-info reveal">
+    <p class="section-label">Get in Touch</p>
+    <h2 class="section-title">Let's Discuss<br>Your Next<br>Chapter</h2>
+    <div class="contact-detail">
+      <div class="contact-detail-item">
+        <span class="detail-label">Founder &amp; Principal</span>
+        <span class="detail-value" style="font-size:0.78rem;">Ron Mulder <em style="font-size:0.68rem; color:var(--grey-dark); font-style:italic;">MBA, TechMgt</em></span>
+      </div>
+
+      <div class="contact-detail-item">
+        <span class="detail-label">Based In</span>
+        <span class="detail-value">Southport, Queensland, Australia</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form reveal">
+    <h3 class="form-title">Send an Enquiry</h3>
+    <p class="form-subtitle">Complete the form below and Ron will respond personally within one business day.</p>
+
+    <!-- Success message (hidden until submitted) -->
+    <div id="fs-success" style="display:none; padding:2rem; background:var(--grey-light); border-left:3px solid var(--gold); margin-bottom:1.5rem;">
+      <p style="font-size:0.85rem; font-weight:500; color:var(--black); margin-bottom:0.3rem;">Thank you for your enquiry.</p>
+      <p style="font-size:0.75rem; font-weight:300; color:var(--grey-dark);">Ron will be in touch personally within one business day.</p>
+    </div>
+
+    <!-- Error message (hidden until error) -->
+    <div id="fs-error" style="display:none; padding:1rem; background:#fff0f0; border-left:3px solid var(--red); margin-bottom:1.5rem;">
+      <p style="font-size:0.75rem; color:var(--red);">Something went wrong. Please try again or email directly.</p>
+    </div>
+
+    <form id="contact-form" action="https://formspree.io/f/mojyqzjq" method="POST">
+
+      <!-- Hidden field to identify the source -->
+      <input type="hidden" name="_subject" value="New Enquiry — Redlum International Website">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">Full Name *</label>
+          <input type="text" id="fname" name="name" placeholder="Your full name" required>
+        </div>
+        <div class="form-group">
+          <label for="femail">Email Address *</label>
+          <input type="email" id="femail" name="email" placeholder="your@email.com" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fphone">Phone Number</label>
+        <input type="tel" id="fphone" name="phone" placeholder="+61 4XX XXX XXX">
+      </div>
+
+      <div class="form-group">
+        <label for="fservice">Area of Interest *</label>
+        <select id="fservice" name="service" required>
+          <option value="" disabled selected>Select a service or speciality…</option>
+          <optgroup label="Core Services">
+            <option value="Business Coaching">Business Coaching</option>
+            <option value="Strategic Analysis & Finance">Strategic Analysis &amp; Finance</option>
+            <option value="Mentoring">Mentoring</option>
+            <option value="Leadership Training">Leadership Training</option>
+            <option value="Quality Assurance Implementation">Quality Assurance Implementation</option>
+            <option value="AI Guidance & Implementation">AI Guidance &amp; Implementation</option>
+          </optgroup>
+          <optgroup label="Specialities">
+            <option value="Startup & Scale-Up Strategy">Startup &amp; Scale-Up Strategy</option>
+            <option value="Business Valuation & Exit Planning">Business Valuation &amp; Exit Planning</option>
+            <option value="Mergers & Acquisitions">Mergers &amp; Acquisitions</option>
+            <option value="Corporate Turnaround">Corporate Turnaround</option>
+          </optgroup>
+          <option value="Other">Other — Please specify below</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="fmessage">Your Message *</label>
+        <textarea id="fmessage" name="message" placeholder="Tell us about your business situation and what you're looking to achieve…" required></textarea>
+      </div>
+
+      <button type="submit" class="form-submit" id="submit-btn">Submit Enquiry →</button>
+
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <span style="color:var(--red)">Red</span><span style="color:var(--grey-mid)">lum</span>
+    <span style="font-size:0.55rem; letter-spacing:0.3em; color:var(--gold); display:block;">International</span>
+  </div>
+  <p class="footer-copy">© 2025 Redlum International. All rights reserved. | Ron Mulder | <a href="admin.html" rel="nofollow" style="color:inherit; opacity:0.35; text-decoration:none;">Staff login</a></p>
+</footer>
+
+<script>
+  // Scroll reveal — content visible by default, animates in on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach(el => el.classList.add('hidden'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove('hidden');
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+  reveals.forEach(el => observer.observe(el));
+  reveals.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      el.classList.remove('hidden');
+      el.classList.add('visible');
+    }
+  });
+
+  // Stagger grid children
+  document.querySelectorAll('.services-grid .service-card, .spec-grid .spec-card').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.07) + 's';
+  });
+
+  // Formspree Ajax submission
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const successMsg = document.getElementById('fs-success');
+  const errorMsg = document.getElementById('fs-error');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+    errorMsg.style.display = 'none';
+
+    const data = new FormData(form);
+
+    try {
+      const response = await fetch('https://formspree.io/f/mojyqzjq', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else {
+        const json = await response.json();
+        errorMsg.style.display = 'block';
+        submitBtn.textContent = 'Submit Enquiry →';
+        submitBtn.disabled = false;
+      }
+    } catch (err) {
+      errorMsg.style.display = 'block';
+      submitBtn.textContent = 'Submit Enquiry →';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
