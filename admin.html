@@ -47,6 +47,11 @@
   td a { color:var(--black); }
   .del { padding:0.5rem 0.9rem; font-size:0.55rem; background:transparent; color:var(--red); border-color:var(--red); }
   .del:hover { background:var(--red); color:#fff; }
+  .enq-msg { white-space:pre-wrap; max-width:340px; font-size:0.74rem; line-height:1.6; }
+  .badge { display:inline-block; font-size:0.52rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; padding:0.3rem 0.6rem; }
+  .badge.new { background:var(--red); color:#fff; } .badge.done { background:var(--grey-light); color:var(--grey-dark); }
+  .small-btn { padding:0.5rem 0.9rem; font-size:0.55rem; background:transparent; color:var(--grey-dark); border-color:var(--grey-mid); margin-right:0.4rem; }
+  .small-btn:hover { background:var(--black); border-color:var(--black); color:#fff; }
   @media (max-width:760px){ .bar{padding:1rem 1.2rem;} .wrap{padding:0 1rem;} .hide-sm{display:none;} }
 </style>
 </head>
@@ -78,6 +83,16 @@
   </div>
 
   <div class="wrap">
+    <div class="panel">
+      <h2>Enquiries <span id="enq-count" style="font-size:1rem;color:var(--grey-dark);"></span></h2>
+      <p class="msg" id="enq-status"></p>
+      <div style="margin-bottom:1.2rem;"><button class="btn-ghost" id="export-csv" style="padding:0.6rem 1.1rem;">Export CSV</button></div>
+      <table>
+        <thead><tr><th>Received</th><th>From</th><th class="hide-sm">Interest</th><th>Message</th><th>Status</th><th></th></tr></thead>
+        <tbody id="enq-rows"></tbody>
+      </table>
+    </div>
+
     <div class="panel">
       <h2>Upload media</h2>
       <p class="hint" id="allowed-hint"></p>
@@ -120,7 +135,7 @@
   function show(session){
     $('login').classList.toggle('hidden', !!session);
     $('dash').classList.toggle('hidden', !session);
-    if (session) { $('who').textContent = session.user.email; loadList(); }
+    if (session) { $('who').textContent = session.user.email; loadEnquiries(); loadList(); }
   }
 
   sb.auth.getSession().then(({data}) => show(data.session));
@@ -213,6 +228,68 @@
     if (r2.error) { alert('File removed but the record could not be deleted.'); }
     loadList();
   }
+
+  // ---------- Enquiries ----------
+  let enquiryCache = [];
+  async function loadEnquiries(){
+    const { data, error } = await sb.from('enquiries').select('*').order('created_at',{ascending:false});
+    const rows = $('enq-rows'); rows.innerHTML = '';
+    if (error) { $('enq-status').className='msg err'; $('enq-status').textContent='Could not load enquiries. Has the enquiries SQL been run?'; return; }
+    enquiryCache = data;
+    const open = data.filter(d => d.status !== 'done').length;
+    $('enq-count').textContent = data.length ? '(' + data.length + ' total, ' + open + ' new)' : '';
+    $('enq-status').className='msg'; $('enq-status').textContent = data.length ? '' : 'No enquiries yet.';
+    data.forEach(item => {
+      const tr = document.createElement('tr');
+      const tdDate = document.createElement('td'); tdDate.textContent = fmtDate(item.created_at);
+
+      const tdFrom = document.createElement('td');
+      const nm = document.createElement('div'); nm.style.fontWeight='500'; nm.textContent = item.name;
+      const em = document.createElement('a'); em.href = 'mailto:' + encodeURIComponent(item.email).replace('%40','@'); em.textContent = item.email; em.style.display='block';
+      tdFrom.append(nm, em);
+      if (item.phone) { const ph = document.createElement('div'); ph.style.fontSize='0.72rem'; ph.textContent = item.phone; tdFrom.appendChild(ph); }
+
+      const tdSvc = document.createElement('td'); tdSvc.className='hide-sm'; tdSvc.textContent = item.service || '';
+      const tdMsg = document.createElement('td'); const m = document.createElement('div'); m.className='enq-msg'; m.textContent = item.message; tdMsg.appendChild(m);
+
+      const tdStat = document.createElement('td');
+      const badge = document.createElement('span'); const isDone = item.status === 'done';
+      badge.className = 'badge ' + (isDone ? 'done' : 'new'); badge.textContent = isDone ? 'Done' : 'New'; tdStat.appendChild(badge);
+
+      const tdAct = document.createElement('td'); tdAct.style.whiteSpace='nowrap';
+      const t = document.createElement('button'); t.className='small-btn'; t.textContent = isDone ? 'Reopen' : 'Mark done';
+      t.addEventListener('click', async () => {
+        t.disabled = true;
+        const r = await sb.from('enquiries').update({ status: isDone ? 'new' : 'done' }).eq('id', item.id);
+        if (r.error) alert('Could not update.');
+        loadEnquiries();
+      });
+      const d = document.createElement('button'); d.className='del'; d.textContent='Delete';
+      d.addEventListener('click', async () => {
+        if (!confirm('Permanently delete the enquiry from ' + item.name + '? This cannot be undone.')) return;
+        const r = await sb.from('enquiries').delete().eq('id', item.id);
+        if (r.error) alert('Could not delete.');
+        loadEnquiries();
+      });
+      tdAct.append(t, d);
+
+      tr.append(tdDate, tdFrom, tdSvc, tdMsg, tdStat, tdAct); rows.appendChild(tr);
+    });
+  }
+
+  $('export-csv').addEventListener('click', () => {
+    if (!enquiryCache.length) { alert('There are no enquiries to export.'); return; }
+    const cols = ['created_at','name','email','phone','service','message','status'];
+    const cell = v => {
+      let t = (v == null ? '' : String(v));
+      if (/^[=+\-@]/.test(t)) t = "'" + t;   // stop spreadsheet formula injection
+      return '"' + t.replace(/"/g,'""') + '"';
+    };
+    const csv = [cols.join(',')].concat(enquiryCache.map(r => cols.map(c => cell(r[c])).join(','))).join('\r\n');
+    const url = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
+    const a = document.createElement('a'); a.href = url; a.download = 'redlum-enquiries.csv'; a.click();
+    URL.revokeObjectURL(url);
+  });
 </script>
 </body>
 </html>

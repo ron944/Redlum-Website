@@ -943,6 +943,7 @@
       </div>
 
       <button type="submit" class="form-submit" id="submit-btn">Submit Enquiry →</button>
+      <p style="margin-top:1rem; font-size:0.62rem; font-weight:300; line-height:1.7; color:var(--grey-dark);">Your details are used only to respond to your enquiry and are not shared with third parties.</p>
 
     </form>
   </div>
@@ -957,6 +958,7 @@
   <p class="footer-copy">© 2025 Redlum International. All rights reserved. | Ron Mulder | <a href="admin.html" rel="nofollow" style="color:inherit; opacity:0.35; text-decoration:none;">Staff login</a></p>
 </footer>
 
+<script src="supabase-config.js"></script>
 <script>
   // Scroll reveal — content visible by default, animates in on scroll
   const reveals = document.querySelectorAll('.reveal');
@@ -984,11 +986,41 @@
     el.style.transitionDelay = (i * 0.07) + 's';
   });
 
-  // Formspree Ajax submission
+  // Contact form: saves every enquiry to the back office (Supabase) AND emails it via Formspree
   const form = document.getElementById('contact-form');
   const submitBtn = document.getElementById('submit-btn');
   const successMsg = document.getElementById('fs-success');
   const errorMsg = document.getElementById('fs-error');
+
+  async function saveToBackOffice(fd) {
+    const C = window.REDLUM_CONFIG;
+    if (!C) throw new Error('config missing');
+    const res = await fetch(C.SUPABASE_URL + '/rest/v1/enquiries', {
+      method: 'POST',
+      headers: {
+        'apikey': C.SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        name: (fd.get('name') || '').toString().trim(),
+        email: (fd.get('email') || '').toString().trim(),
+        phone: (fd.get('phone') || '').toString().trim() || null,
+        service: (fd.get('service') || '').toString(),
+        message: (fd.get('message') || '').toString().trim()
+      })
+    });
+    if (!res.ok) throw new Error('save failed');
+  }
+
+  async function sendEmail(fd) {
+    const res = await fetch('https://formspree.io/f/mojyqzjq', {
+      method: 'POST',
+      body: fd,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!res.ok) throw new Error('email failed');
+  }
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -996,25 +1028,15 @@
     submitBtn.disabled = true;
     errorMsg.style.display = 'none';
 
-    const data = new FormData(form);
+    const fd = new FormData(form);
+    // Run both; the visitor sees success if at least one worked
+    const results = await Promise.allSettled([saveToBackOffice(fd), sendEmail(fd)]);
+    const ok = results.some(r => r.status === 'fulfilled');
 
-    try {
-      const response = await fetch('https://formspree.io/f/mojyqzjq', {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (response.ok) {
-        form.style.display = 'none';
-        successMsg.style.display = 'block';
-      } else {
-        const json = await response.json();
-        errorMsg.style.display = 'block';
-        submitBtn.textContent = 'Submit Enquiry →';
-        submitBtn.disabled = false;
-      }
-    } catch (err) {
+    if (ok) {
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+    } else {
       errorMsg.style.display = 'block';
       submitBtn.textContent = 'Submit Enquiry →';
       submitBtn.disabled = false;
