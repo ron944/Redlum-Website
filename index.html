@@ -898,6 +898,10 @@
 
       <!-- Hidden field to identify the source -->
       <input type="hidden" name="_subject" value="New Enquiry — Redlum International Website">
+      <!-- Spam trap: hidden from people, bots tend to fill it in -->
+      <div style="position:absolute; left:-9999px; height:0; overflow:hidden;" aria-hidden="true">
+        <label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+      </div>
 
       <div class="form-row">
         <div class="form-group">
@@ -992,6 +996,8 @@
   const successMsg = document.getElementById('fs-success');
   const errorMsg = document.getElementById('fs-error');
 
+  const pageLoadedAt = Date.now();
+
   async function saveToBackOffice(fd) {
     const C = window.REDLUM_CONFIG;
     if (!C) throw new Error('config missing');
@@ -1029,6 +1035,12 @@
     errorMsg.style.display = 'none';
 
     const fd = new FormData(form);
+    // Bot check: the hidden field must be empty and a human takes more than a few seconds
+    if (fd.get('_gotcha') || (Date.now() - pageLoadedAt) < 4000) {
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+      return;
+    }
     // Run both; the visitor sees success if at least one worked
     const results = await Promise.allSettled([saveToBackOffice(fd), sendEmail(fd)]);
     const ok = results.some(r => r.status === 'fulfilled');
